@@ -18,6 +18,7 @@ export const SignIn = () => {
     }
     setIsLoading(false);
   };
+
   return (
     <div className="w-full h-screen relative">
       <div id="background-efect" className="absolute inset-0">
@@ -82,7 +83,7 @@ export const SignIn = () => {
                         {isLoading ? (
                           <ClipLoader color="#ffffff" size={18} />
                         ) : (
-                          "Sign Up"
+                          "Sign In"
                         )}
                       </button>
                       <div className="flex justify-between items-center text-sm text-gray-600">

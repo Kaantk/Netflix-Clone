@@ -54,7 +54,7 @@ export const AuthContextProvider = ({ children }) => {
       writeCredentialUser(credentialUser);
       navigate("/home");
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 
@@ -69,7 +69,7 @@ export const AuthContextProvider = ({ children }) => {
       writeCredentialUser(credentialUser);
       navigate("/home");
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 

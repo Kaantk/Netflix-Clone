@@ -6,6 +6,7 @@ export default {
       colors: {
         link: "#e5e5e5",
         background: "#141414",
+        button: "#808080",
       },
     },
   },

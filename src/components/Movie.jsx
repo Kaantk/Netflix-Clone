@@ -8,7 +8,7 @@ export const Movie = ({ movie }) => {
     console.log(movie);
   };
   return (
-    <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] relative overflow-hidden transition-transform duration-200 hover:scale-95">
+    <div className="w-[500px] sm:w-[200px] md:w-[240px] lg:w-[290px] relative overflow-hidden transition-transform duration-200 hover:scale-95">
       <div className="w-full h-full bg-black"></div>
       <img
         className="w-full h-auto cursor-pointer inline-block rounded-md"

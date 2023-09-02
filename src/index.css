@@ -17,4 +17,12 @@
     width: 150px;
     height: 150px;
   }
+  .custom-checkbox {
+    height: 40px;
+    width: 40px;
+    border: 1px solid #808080;
+    background-color: transparent;
+    margin-right: 8px;
+    outline: none;
+  }
 }

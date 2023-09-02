@@ -4,7 +4,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { auth, db } from "../firebase/firebase";
+import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -73,8 +74,20 @@ export const AuthContextProvider = ({ children }) => {
     }
   }
 
+  async function addUserProfile(newProfile) {
+    debugger;
+    try {
+      const docRef = await addDoc(collection(db, "Users"), newProfile);
+      console.log("Yeni kullanıcı profili eklendi, belge kimliği:", docRef.id);
+    } catch (error) {
+      console.error("Kullanıcı eklenirken hata oluştu:", error);
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ signUp, signIn, user, logOut }}>
+    <AuthContext.Provider
+      value={{ signUp, signIn, user, logOut, addUserProfile }}
+    >
       {children}
     </AuthContext.Provider>
   );

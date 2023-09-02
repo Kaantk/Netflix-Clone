@@ -44,7 +44,9 @@ export const Row = ({ rowID, title, fetchURL }) => {
         <p className="text-white">Loading...</p>
       ) : (
         <div className="flex flex-col mx-2 mt-4 relative ">
-          <span className="text-white mb-2 font-semibold text-md">{title}</span>
+          <span className="text-white mb-2 font-semibold text-3xl ">
+            {title}
+          </span>
           <button
             className={`absolute right-0 top-1/2 z-[100] ${
               scrollPosition >= movies.length * 200 ? "hidden" : ""

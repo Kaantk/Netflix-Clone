@@ -46,7 +46,7 @@ export const Row = ({ rowID, title, fetchURL }) => {
         <div className="flex flex-col mx-2 mt-4 relative ">
           <span className="text-white mb-2 font-semibold text-md">{title}</span>
           <button
-            className={`absolute right-0 top-1/2 ${
+            className={`absolute right-0 top-1/2 z-[100] ${
               scrollPosition >= movies.length * 200 ? "hidden" : ""
             }`}
             onClick={slideLeft}

@@ -63,7 +63,7 @@ export const Row = ({ rowID, title, fetchURL }) => {
           >
             {movies.map((movie, index) => (
               <div key={index}>
-                <Movie movie={movie} />
+                {movie?.backdrop_path && <Movie movie={movie} />}
               </div>
             ))}
           </div>

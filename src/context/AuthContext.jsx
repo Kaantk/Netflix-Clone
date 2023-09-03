@@ -35,6 +35,7 @@ export const AuthContextProvider = ({ children }) => {
       phoneNumber: user.phoneNumber,
       photoURL: user.photoURL,
       uid: user.uid,
+      profiles: {},
     };
     localStorage.setItem("CredentialUser", JSON.stringify(CredentialUser));
   }
@@ -86,7 +87,14 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signUp, signIn, user, logOut, addUserProfile }}
+      value={{
+        signUp,
+        signIn,
+        user,
+        logOut,
+        addUserProfile,
+        writeCredentialUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

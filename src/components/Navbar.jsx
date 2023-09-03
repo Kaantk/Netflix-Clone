@@ -5,11 +5,11 @@ import { UserAuth } from "../context/AuthContext";
 
 export const Navbar = () => {
   const location = useLocation().pathname;
-  const { logOut } = UserAuth();
+  const { removeUserToLocalStorage } = UserAuth();
   const [isSticky, setIsSticky] = useState(false);
 
   const handleLogOut = () => {
-    logOut();
+    removeUserToLocalStorage();
   };
 
   useEffect(() => {

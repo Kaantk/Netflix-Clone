@@ -2,9 +2,20 @@ import React, { useEffect } from "react";
 import Main from "../components/Main";
 import { Row } from "../components/Row";
 import requests from "../Requests";
+import { UserAuth } from "../context/AuthContext";
 
 export const Home = () => {
-  useEffect(() => {}, []);
+  const { getCurrentUser } = UserAuth();
+
+  async function fetcData() {
+    const response = await getCurrentUser();
+    console.log(response);
+  }
+
+  useEffect(() => {
+    fetcData();
+  }, []);
+
   return (
     <div className="bg-background">
       <Main />

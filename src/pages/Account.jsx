@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "../../public/Icons";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
@@ -8,20 +8,29 @@ export const Account = () => {
   const [profileName, setProfileName] = useState("");
   const user = JSON.parse(localStorage.getItem("CredentialUser"));
   const navigate = useNavigate();
-  const { addUserProfile } = UserAuth();
+  const { addNewUserProfile, getCurrentUser } = UserAuth();
+  const [userProfiles, setUserProfiles] = useState([]);
 
   const handleSubmit = async (profileName) => {
-    debugger;
-    const newUser = {
+    const newUserProfile = {
       profileName: profileName,
       defaultPhoto:
         "https://occ-0-7329-1489.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABbV2URr-qEYOrESG0qnP2787XsIxWTMBh7QfJwyqYxMAVFNyiXAqFeu16gI8yTxg3kLwF2mUDKmZGfwBEDd7722xskhYwAMwsBBe.png?r=bd7",
     };
     try {
-      await addUserProfile(newUser);
+      await addNewUserProfile(newUserProfile);
       setAddProfile(false);
     } catch (error) {}
   };
+
+  const fetchData = async () => {
+    const response = await getCurrentUser();
+    setUserProfiles(response.profiles);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [userProfiles]);
 
   return (
     <>
@@ -48,11 +57,31 @@ export const Account = () => {
               </div>
               <div className="mt-2">
                 <p className="text-button font-semibold text-xl  group-hover:text-white">
-                  {user?.email}
+                  {user?.displayName || user?.email}
                 </p>
               </div>
             </div>
-
+            {userProfiles.map((profile, index) => (
+              <div
+                key={index}
+                className="group flex items-center justify-center flex-col text-button cursor-pointer"
+              >
+                <div
+                  className="profile-box rounded relative group-hover:border-[3px] border-white"
+                  onClick={() => navigate("/home")}
+                >
+                  <img
+                    src={profile.defaultPhoto}
+                    alt={`${user?.displayName} photo`}
+                  />
+                </div>
+                <div className="mt-2">
+                  <p className="text-button font-semibold text-xl  group-hover:text-white">
+                    {user?.displayName || profile.profileName}
+                  </p>
+                </div>
+              </div>
+            ))}
             <div className="flex items-center justify-center flex-col text-button cursor-pointer">
               <div
                 className="profile-box flex items-center justify-center hover:bg-gray-200 rounded"

@@ -9,14 +9,16 @@ export const SignUp = () => {
   const { signUp } = UserAuth();
   const [isLoading, setIsLoading] = useState(false);
 
+  // Firebase üzeirinden yeni kullanıcı oluşturur.
   const handleSubmit = async ({ email, password }) => {
     setIsLoading(true);
     try {
       await signUp(email, password);
     } catch (error) {
-      return error;
+      console.log("Kullanıcı oluşturulamadı:", error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

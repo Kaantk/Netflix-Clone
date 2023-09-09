@@ -15,7 +15,7 @@ export const SignUp = () => {
     try {
       await signUp(email, password);
     } catch (error) {
-      console.log("Kullanıcı oluşturulamadı:", error);
+      console.log(error);
     } finally {
       setIsLoading(false);
     }

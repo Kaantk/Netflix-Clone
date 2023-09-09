@@ -9,7 +9,6 @@ export const Home = () => {
 
   async function fetcData() {
     const response = await getCurrentUser();
-    console.log(response);
   }
 
   useEffect(() => {

@@ -14,7 +14,7 @@ export const SignIn = () => {
     try {
       await signIn(email, password);
     } catch (error) {
-      console.log("Kullanıcı giriş yapamadı:", error);
+      console.log(error);
     }
     setIsLoading(false);
   };

@@ -5,7 +5,6 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import {
   addUserToDatabase,
   getUsersFromDatabase,
@@ -35,6 +34,30 @@ export const AuthContextProvider = ({ children }) => {
     };
   }
 
+  function getByErrorMessage(error) {
+    switch (
+      error.code // Hata kodunu doğru şekilde kontrol ediyoruz.
+    ) {
+      case "auth/email-already-in-use":
+        return "E-mail address is already in use.";
+
+      case "auth/weak-password":
+        return "Password is too weak. Please choose a stronger one.";
+
+      case "auth/user-not-found":
+        return "User not found. Please check your credentials.";
+
+      case "auth/invalid-email":
+        return "Invalid email address. Please enter a valid email.";
+
+      case "auth/wrong-password":
+        return "Incorrect password. Please try again.";
+
+      default:
+        return "An unknown error occurred.";
+    }
+  }
+
   // Filtrelenmiş User bilgilerini localStorage'a ekler.
   function addUserToLocalStorage(selectedUser) {
     localStorage.setItem("CredentialUser", JSON.stringify(selectedUser));
@@ -51,16 +74,16 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const credentialUser =
         action === "signUp"
-          ? await createUserWithEmailAndPassword(auth, email, password) // Signup durumunda firebase kayıt işlemi
-          : await signInWithEmailAndPassword(auth, email, password); // SignIn durumunda firebase giriş işlemi
+          ? await createUserWithEmailAndPassword(auth, email, password)
+          : await signInWithEmailAndPassword(auth, email, password);
 
       const user = selectedUserFields(credentialUser.user);
-      setUser(user); // Firabese'den gelen user bilgisi
+      setUser(user);
       addUserToLocalStorage(user);
-      action === "signUp" && (await addUserToDatabase(user)); // Gelen user bilgisi üzerinden belirli fieldları db.json'a ekler.
+      action === "signUp" && (await addUserToDatabase(user));
       navigate("/home");
     } catch (error) {
-      console.log("authenticateFirebaseUser Hata:", error);
+      return alert(getByErrorMessage(error)); // Hatanın fırlatılması
     }
   }
 
@@ -92,7 +115,7 @@ export const AuthContextProvider = ({ children }) => {
       updatedUser.profiles.push(newUserProfile);
       updateUserToDatabase(currentUser.id, updatedUser);
     } else {
-      return "4 kişiden daha fazla profil olamaz.";
+      return alert("Kullanıcı profil sayısı toplamda 4'ten fazla olamaz.");
     }
   }
 

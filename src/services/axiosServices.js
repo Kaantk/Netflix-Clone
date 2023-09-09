@@ -25,7 +25,6 @@ export const getUsersFromDatabase = async () => {
 
 // Kullanıcıları veritabanına yazmak için bir işlev
 export const updateUserToDatabase = async (userID, updateUser) => {
-  debugger;
   try {
     await api.put(`/users/${userID}`, updateUser); // Veritabanına güncellenmiş kullanıcıları yazın
   } catch (error) {
